@@ -22,7 +22,16 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try {
+    res.send("authorised");
+  } catch (error) {
+    res.status(501).json({ message: error.message, error: error });
+  }
+};
+
 module.exports = {
   signupUser: signupUser,
   getAllUsers: getAllUsers,
+  login: login,
 };
