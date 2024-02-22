@@ -29,7 +29,7 @@ const comparePass = async (req, res, next) => {
 
     const hashedDb = user.dataValues.password;
 
-    console.log(hashedDb);
+    // console.log(hashedDb);
 
     const matched = await bcrypt.compare(plainTextPass, hashedDb);
 
@@ -39,21 +39,29 @@ const comparePass = async (req, res, next) => {
 
     const userData = user.dataValues;
 
-    res.send({ message: "returned user data", userData });
+    // res.send({ message: "returned user data", userData });
 
-    // req.user = user.dataValues
+    req.user = user.dataValues;
 
-    // next();
+    next();
   } catch (error) {
     res.status(501).json({ message: error.message, error: error });
   }
 };
 
-const getOneUser = async (req, res) => {
-  res.status(201).json({ message: "login success", user: req.user });
+const emailValidation = async (req, res, next) => {
+  // validate email
+  next();
+};
+
+const passwordValidation = async (req, res, next) => {
+  // validate password
+  next();
 };
 
 module.exports = {
   hashPass: hashPass,
   comparePass: comparePass,
+  emailValidation: emailValidation,
+  passwordValidation: passwordValidation,
 };
